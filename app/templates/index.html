@@ -1,0 +1,26 @@
+# HTML básico con input y botón para interactuar con el "modelo"
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulador Banca IA</title>
+    <script>
+        async function enviarMensaje() {
+            const mensaje = document.getElementById("prompt").value;
+            const res = await fetch("/procesar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ mensaje })
+            });
+            const data = await res.json();
+            document.getElementById("respuesta").innerText = data.respuesta;
+        }
+    </script>
+</head>
+<body>
+    <h2>🌐 Simulador de Transferencias Bancarias con IA</h2>
+    <input type="text" id="prompt" placeholder="Ej. Transferir $500 a Juan">
+    <button onclick="enviarMensaje()">Enviar</button>
+    <p><strong>Respuesta:</strong> <span id="respuesta"></span></p>
+</body>
+</html>
